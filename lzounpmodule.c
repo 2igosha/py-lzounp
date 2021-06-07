@@ -24,6 +24,7 @@ lzounp_lzo1z_decompress(PyObject *self, PyObject *args)
     unsigned char* dataOut = malloc(lenOut);
     int result = lzo1z_decompress_safe(compressed.buf, compressed.len, dataOut, &lenOut, NULL);
     if ( result != 0 ) {
+        free(dataOut);
         return PyErr_Format(PyExc_RuntimeError, "lzo1z_decompress_safe returned %d", result);
     }
     PyObject* ret = PyBytes_FromStringAndSize((const char*)dataOut, lenOut);
@@ -42,6 +43,7 @@ lzounp_lzo1y_decompress(PyObject *self, PyObject *args)
     unsigned char* dataOut = malloc(lenOut);
     int result = lzo1y_decompress_safe(compressed.buf, compressed.len, dataOut, &lenOut, NULL);
     if ( result != 0 ) {
+        free(dataOut);
         return PyErr_Format(PyExc_RuntimeError, "lzo1x_decompress_safe returned %d", result);
     }
     PyObject* ret = PyBytes_FromStringAndSize((const char*)dataOut, lenOut);
@@ -60,6 +62,7 @@ lzounp_lzo1x_decompress(PyObject *self, PyObject *args)
     unsigned char* dataOut = malloc(lenOut);
     int result = lzo1x_decompress_safe(compressed.buf, compressed.len, dataOut, &lenOut, NULL);
     if ( result != 0 ) {
+        free(dataOut);
         return PyErr_Format(PyExc_RuntimeError, "lzo1x_decompress_safe returned %d", result);
     }
     PyObject* ret = PyBytes_FromStringAndSize((const char*)dataOut, lenOut);
